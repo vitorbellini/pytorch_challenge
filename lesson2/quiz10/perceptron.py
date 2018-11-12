@@ -17,12 +17,19 @@ def prediction(X, W, b):
 # and return W and b.
 def perceptronStep(X, y, W, b, learn_rate = 0.01):
     # Fill in code
-    y_hat = prediction(X, W, b)
-    for y_i, y_hat_i in zip(y, y_hat):
-        if y_hat_i != y_i:
-            if y_hat_i == 1:
-                W = W - 
-            elif y_hat_i == 0:
+
+    for i in range(len(X)):
+        y_hat = prediction(X[i], W, b)
+
+        if y_hat != y[i]: # For every miscalssified ponit
+            if y_hat == 1:
+                for l in range(len(W)):
+                    W[l] = W[l] - X[i][l] * learn_rate
+                b = b - learn_rate
+            if y_hat == 0:
+                for l in range(len(W)):
+                    W[l] = W[l] + X[i][l] * learn_rate
+                b = b + learn_rate
 
     return W, b
 
